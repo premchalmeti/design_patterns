@@ -1,0 +1,3 @@
+- Design a database connection pool using Python
+    - Use context mgr
+    - Object pool design patterns
