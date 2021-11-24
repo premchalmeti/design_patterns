@@ -1,4 +1,4 @@
-from observer_pattern.observers.base_observer import Observer
+from collections import defaultdict
 
 
 class Subject:
@@ -10,18 +10,15 @@ class Subject:
         4. notify(): called to notify subscribers
     
     The observers subscribe to the the subject to get notified of the events
-
     """
     def __init__(self):
-        self.subscribers = {}
+        self.subscribers = defaultdict(list)
 
-    def subscribe(self, eventType, listener):
-        eventSubscribers = self.subscribers.get(eventType, [])
-        eventSubscribers.append(listener)
-        self.subscribers[eventType] = eventSubscribers
+    def subscribe(self, event, listener):
+        self.subscribers[event].append(listener)
 
-    def unsubscribe(self, eventType, listener):
-        self.subscribers[eventType] = filter(lambda s: s != listener, self.subscribers.get(eventType, []))
+    def unsubscribe(self, event, listener):
+        self.subscribers[event].remove(listener)
 
-    def notify(self, eventType, data):
-        list(map(lambda s: s.update(eventType, data, self), self.subscribers.get(eventType, [])))
+    def notify(self, event, data):
+        list(map(lambda s: s.update(event, data, self), self.subscribers[event]))

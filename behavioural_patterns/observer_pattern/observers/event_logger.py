@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from . import Observer
+from observer_pattern.observers.base_observer import Observer
 
 
 class LoggingListener(Observer):

@@ -1,4 +1,5 @@
-from . import Subject
+from unittest.mock import mock_open, patch
+from observer_pattern.subjects.base_subject import Subject
 
 
 class Editor:
@@ -10,7 +11,8 @@ class Editor:
         self.events = Subject()
 
     def openFile(self, path, mode):
-        self.file = open(path, mode)
+        with patch("builtins.open", mock_open(read_data="data")) as mock_file:
+            self.file = open(path, mode)
         self.events.notify(self.FILE_OPEN_EVENT, {'file': self.file.name})
 
     def writeToFile(self, data):

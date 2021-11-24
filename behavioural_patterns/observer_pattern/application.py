@@ -1,5 +1,6 @@
-from observers import LoggingListener, EmailManager
-from subjects import Editor
+from observer_pattern.observers.event_logger import LoggingListener 
+from observer_pattern.observers.email_broadcast import EmailManager
+from observer_pattern.subjects.editor import Editor
 
 
 def run():
